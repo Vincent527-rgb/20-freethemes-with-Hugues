@@ -1,62 +1,174 @@
 @use "../abstracts/" as *;
 
-*{
-    font-family: Arial, Helvetica, sans-serif;
+body {
+    font-family: "Comfortaa";
+    background-color: $white-medium;
+    position: relative;
 }
 
-.inscriptions{
-    height: 100vh;
+.creation-personnes {
     display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-wrap: wrap;
-    position: relative;
-
-    iframe {
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        z-index: -1;
-    }
-
-    form{
-        text-align: center;
-        background-color: rgba(255, 255, 255, 0.473);
-        width: 25%;
-        height: 50%;
-        padding: 5rem 4rem;
-        border-radius: 2rem;
-        box-shadow: 0 0 10px rgba(0,0,0,0.25);
+    justify-content: center; 
+    align-items: center;
+    
+    form {
+        width: 50%;
+        padding: 3rem;
+        margin: 5rem 0;
+        background-color:#add8e6;
+        box-shadow: 0 0 10px 5px rgba(0,0,0,0.25);
+        border-radius: 3rem;
         display: flex;
         flex-direction: column;
-        align-content: center;
-    }
 
-    input{
-        display: inline-block;
-        border-radius: 1rem;
-        padding: 1rem 1.5rem;
-        margin-bottom: 3rem;
-    }
+        label {
+            padding: 1rem 0;
+            text-decoration: underline;
+        }
+        input {
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        select {
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        button {
+            width: fit-content;
+            padding: 1rem 3rem;
+            text-transform: uppercase;
+            background-color: #fff;
+            border: 2px solid $main-dark;
+            border-radius: 1rem;
+            align-self: center;
 
-    label{
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-
-    .ajouter-client{
-        color: $main-light;
-        font-weight: bold;
-        border: 3px solid $main-light;
-        background: transparent;
-        border-radius: 1rem;
-        padding: 1rem;
-        margin-top: auto;
-        &:hover{
-            background-color: $main-light;
-            color: $main-dark;
-            cursor: pointer;
+            &:hover {
+                background-color: $main-dark;
+                color: #fff;
+            }
         }
     }
+}
+.afficher-produits {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+
+    .chaussures {
+        padding: 2rem;
+        background-color: $grey-light;
+        border: 1px solid $main-dark;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .photo {
+            width: 20rem; height: 20rem;
+            margin-bottom: 3rem;
+            background-color: $pink-medium;
+            border-radius: 50%;
+            border: .5rem solid $grey-medium;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .nomModel {
+            margin-bottom: 1rem;
+            font-family: "Righteous";
+            font-size: 2.5rem;
+            font-weight: 900;
+            flex-grow: 1;
+        }
+        .description {
+            margin-bottom: 1rem;
+            text-align: justify;
+            font-size: 1.4rem;
+        }
+        .prix {
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 800;
+            font-size: 2rem;
+        }
+        .addToBag {
+            width: fit-content;
+            padding: 1rem 3rem;
+            text-transform: uppercase;
+            background-color: #fff;
+            border: 2px solid $main-dark;
+            border-radius: 1rem;
+            align-self: center;
+
+            &:hover {
+                background-color: $main-dark;
+                color: #fff;
+            }
+        }
+    }
+}
+.promo-ligne-panier {
+    width: 80rem; height: 50rem;
+    background-color: $white-medium;
+    box-shadow: 0 0 10px 5px rgba(0,0,0,0.25);
+    border-radius: 3rem;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    display: none;
+
+    .afficher-ligne-panier {
+        flex-grow: 1;
+    }
+    form {
+        padding: 3rem;
+        display: flex;
+        justify-content: space-between;
+
+        &>div {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+    label {
+        padding: 1rem 0;
+        text-decoration: underline;
+    }
+    input {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    select {
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+    button {
+        width: fit-content;
+        padding: 1rem 3rem;
+        text-transform: uppercase;
+        background-color: #fff;
+        border: 2px solid $main-dark;
+        border-radius: 1rem;
+        align-self: center;
+
+        &:hover {
+            background-color: $main-dark;
+            color: #fff;
+        }
+    }
+}
+// .zindex {
+//     display: block;
+// }
+
+.afficher-panier, .afficher-caisse {
+    width: 50%;
+    margin: 10rem auto;
 }
