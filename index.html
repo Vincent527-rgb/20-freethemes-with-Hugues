@@ -4,47 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>I love shopping</title>
+  <!-- ---- Links to files -->
   <link rel="stylesheet" href="styles/styles.min.css">
+  <script defer src="./scripts/chaussures.js"></script>
   <script defer src="./scripts/main.js"></script>
 </head>
 <body>
-  <!----------------------------------------- inscription ---------------------------------------------------------->
-  <div class="inscriptions">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/eGUor824a74?autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <form action="#" class="clients">
 
+
+  <!-- ---- Proposition pour Hugues ---- -->
+  <div class="creation-personnes">
+    <form action="#">
       <label for="nom">Nom du client:</label>
-      <input type="text" id="nom" placeholder="Inscrivez votre nom">
-
+      <input type="text" id="nom" placeholder="Inscrivez votre nom" >
       <label for="budget">Votre budget disponible:</label>
-      <input type="text" id="budget" placeholder="ex.: 100€">
-
+      <input type="text" id="budget" placeholder="ex.: 100€"  value="100.20">
+      <select name="role" id="role">
+        <option value="">-- Choisissez votre rôle</option>
+        <option value="vendeur">Vendeur</option>
+        <option value="client">Client</option>
+      </select>
       <button class="ajouter-client">Ajouter</button>
     </form>
   </div>
 
-  <div class="selections">
+  <div class="afficher-produits"></div>
 
-    <div class="tout-chaussures">Mes chaussures</div>
-
-    <div class="envoyer">
-      <div class="addition">Mon ticket</div>
-      <div class="montant-total">Total</div>
-    </div>
+  <div class="promo-ligne-panier">
+    <div class="afficher-ligne-panier"></div>
+    <label for="promo">Entrez votre code promotionnel:</label>
+    <input type="text" id="promo" placeholder="ex.: AF56P3">
+    <button class="ajouter-ligne-panier">Ajouter à mon panier</button>
   </div>
-  
 
-  <!-- <div>
-    <div>
-      <div class="acheteur"></div>
-      <div class="liste-chaussure"></div>
-    </div>
-  </div>
-  <div>
-    <div>
-      <div class="vendeur"></div>
-      <div class="ticket"></div>
-    </div>
-  </div> -->
+  <div class="afficher-panier"></div>
+
+  <div class="afficher-caisse"></div>
 </body>
 </html>

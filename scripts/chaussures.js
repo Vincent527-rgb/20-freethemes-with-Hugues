@@ -1,3 +1,5 @@
+// ==== Tableau d'objets ====
+
 const chaussures = [
     {
         marque: 'Nike',
