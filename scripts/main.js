@@ -14,6 +14,8 @@ const btnAddBag         = document.querySelector(".ajouter-ligne-panier");
 const displayBag        = document.querySelector(".afficher-panier");
 const displayCashier    = document.querySelector(".afficher-caisse");
 
+
+
 // ==== Class constructor ====
 class Human {
     constructor(name, role, idNumber, budget) {
@@ -22,12 +24,13 @@ class Human {
         this.idNumber   = idNumber;
         this.budget     = budget;
     }
-    checkRole(isSalesman) {
-        if (!isSalesman) {
-            console.log("Je suis client et je souhaite acheter dans votre magasin de beaux produits"); 
-        } else {
-            console.log("Je suis le vendeur du magasin. Comment puis-je vous aider?");
-            
+
+    calcul(prix){
+        if (prix > this.budget ) {
+            alert('vous n\'avez pas assez')
+        }else{
+            let reste = this.budget - prix;
+            return reste
         }
     }
 }
@@ -36,6 +39,8 @@ class Human {
 const toutLesPersonnage = [];
 const tabElementsPanier = [];
 let idNumber = 0;
+
+let totalPrice = 0;
 
 // ==== Fonctions utilitaires
 function createElement(tag, className, content) {
@@ -62,7 +67,7 @@ function inscription(name, role, idNumber, budget) {
 }
 
 
-function envoyerPanier(array = chaussures) {
+function envoyerPanier(array = chaussures, callback) {
     displayProducts.addEventListener("click", function (e) {
         e.preventDefault();
         
@@ -87,7 +92,6 @@ function envoyerPanier(array = chaussures) {
             displayBag.innerHTML = '';
             tabElementsPanier.forEach(elements => {
                 
-                console.log(elements);
                 const newElement = createElement("div", "chaussures", ``);
                 const newElementNomModèle = createElement("div", "nomModel", `<strong>${elements.nomModèle}</strong>`);
                 const newElementPrix = createElement("div", `prix`, `<em>${elements.prix} $</em>`);
@@ -99,16 +103,70 @@ function envoyerPanier(array = chaussures) {
 
             const initialValue = 0;
 
-            const totalPrice = tabElementsPanier.reduce(
+            totalPrice = tabElementsPanier.reduce(
             (accumulator, currentValue) => accumulator + currentValue.prix,
             initialValue,
             );
 
-            console.log(totalPrice);
 
+
+
+            const newElement = createElement("div", "total", ``);
+            const addItemBtn = createElement("button", "btnSend", "Payer")
+            appendElement(displayBag, newElement)
+            appendElement(newElement, totalPrice + ' $')
+            appendElement(newElement, addItemBtn);
+            const newElementOption = createElement("select", "personnes", ``);
+            appendElement(newElement, newElementOption)
+            for (const personne of toutLesPersonnage) {
+                option = document.createElement('option')
+                option.value = personne.name;
+                option.textContent += `-- ${personne.name} --`
+
+                appendElement(newElementOption, option)
+            }
+
+
+
+            if (typeof callback === "function") {
+                callback({
+                    elements: tabElementsPanier,
+                    total: totalPrice
+                })
+            }
+
+            let retourMonay = 0
+
+            const btnSend = document.querySelector(".btnSend");
+            if (btnSend) {
+                btnSend.addEventListener('click', (e) =>{
+                    let valuePersonne = newElementOption.value
+                    let trouverPersonne = toutLesPersonnage.find(element => element.name === valuePersonne);
+                    if (trouverPersonne) {
+                        retourMonay = trouverPersonne.budget - totalPrice;
+                        
+                        const newElement = createElement("div", "ticket", ``);
+                        const newElementNomModèle = createElement("div", "client", `<strong>le client : ${trouverPersonne.name}</strong>`);
+                        const newElementPrix = createElement("div", `prix`, `<em>retour : ${retourMonay} $</em>`);
+            
+                        appendElement(displayCashier, newElement)
+                        appendElement(newElement, newElementNomModèle)
+                        appendElement(newElement, newElementPrix)
+                    }
+                })
+            }
         }
     })
 }
+
+function callback() {
+    return {
+        elements: tabElementsPanier,
+        total: totalPrice
+    };
+}
+
+
 
 function afficherChaussures(array = chaussures) {
     array.forEach(element => {
@@ -118,7 +176,7 @@ function afficherChaussures(array = chaussures) {
             const newElementPhoto = createElement("div", "photo", "Ici, il y aura la photo de la chaussure");
             const newElementNomModèle = createElement("div", "nomModel", `<strong>${elements.nomModèle}</strong>`);
             const newElementDescription = createElement("div", "description", `${elements.description}`);
-            const newElementPrix = createElement("div", `prix`, `<em>${elements.prix}</em>`);
+            const newElementPrix = createElement("div", `prix`, `<em>${elements.prix} $</em>`);
 
             appendElement(displayProducts, newElement)
             appendElement(newElement, newElementPhoto)
@@ -135,8 +193,10 @@ function afficherChaussures(array = chaussures) {
 afficherChaussures();
 
 
-console.log(envoyerPanier());
-
+envoyerPanier(chaussures, (panier) => {
+    console.log("Panier mis à jour :", panier);
+    
+});
 
 
 // ==== Evénements ====
@@ -155,6 +215,14 @@ btnAddClient.addEventListener('click',(e) =>{
     
     // console.log(toutLesPersonnage);
 })
+
+
+
+
+
+
+
+
 
 
 
