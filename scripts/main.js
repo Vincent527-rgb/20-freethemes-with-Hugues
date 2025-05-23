@@ -61,6 +61,55 @@ function inscription(name, role, idNumber, budget) {
     }
 }
 
+
+function envoyerPanier(array = chaussures) {
+    displayProducts.addEventListener("click", function (e) {
+        e.preventDefault();
+        
+        if (e.target.classList.contains("addToBag")) {
+            let chaussureParent = e.target.parentElement;
+            let chaussureTarget = chaussureParent.children[1]
+            let nodeChaussure = chaussureTarget.textContent
+
+            let foundModel = null;
+
+            for (let marque of array) {
+                for (let modele of marque.modèle) {
+                    if (modele.nomModèle === nodeChaussure) {
+                        foundModel = modele;
+                        break;
+                    }
+                }
+                if (foundModel) break; 
+            }
+
+            tabElementsPanier.push(foundModel);  
+            displayBag.innerHTML = '';
+            tabElementsPanier.forEach(elements => {
+                
+                console.log(elements);
+                const newElement = createElement("div", "chaussures", ``);
+                const newElementNomModèle = createElement("div", "nomModel", `<strong>${elements.nomModèle}</strong>`);
+                const newElementPrix = createElement("div", `prix`, `<em>${elements.prix} $</em>`);
+    
+                appendElement(displayBag, newElement)
+                appendElement(newElement, newElementNomModèle)
+                appendElement(newElement, newElementPrix)
+            })
+
+            const initialValue = 0;
+
+            const totalPrice = tabElementsPanier.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.prix,
+            initialValue,
+            );
+
+            console.log(totalPrice);
+
+        }
+    })
+}
+
 function afficherChaussures(array = chaussures) {
     array.forEach(element => {
 
@@ -80,12 +129,14 @@ function afficherChaussures(array = chaussures) {
             // Bouton ajouter élément
             const addItemBtn = createElement("button", "addToBag", "Ajouter au panier")
             appendElement(newElement, addItemBtn);
-
         })
     });
 }
-afficherChaussures(array = chaussures);
-console.log(tabElementsPanier);
+afficherChaussures();
+
+
+console.log(envoyerPanier());
+
 
 
 // ==== Evénements ====
@@ -105,21 +156,12 @@ btnAddClient.addEventListener('click',(e) =>{
     // console.log(toutLesPersonnage);
 })
 
-// displayProducts.addEventListener("click", function (event) {
-//     event.preventDefault();
 
-//     if (event.target.classList.contains("addToBag")) {
-//         displayLignBag.innerHTML ='';
-//         const item = event.target.parentElement;
-        
-//         tabElementsPanier.push(item.outerHTML);
 
-//         for (const element of tabElementsPanier) {
-//             displayLignBag.innerHTML += `${element}`;
-//         }
-        
-//     }
-// })
+
+
+
+
 
 
 
