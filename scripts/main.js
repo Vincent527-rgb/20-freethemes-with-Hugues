@@ -192,11 +192,14 @@ function afficherChaussures(array = chaussures) {
 }
 afficherChaussures();
 
+let voir = []
 
 envoyerPanier(chaussures, (panier) => {
     console.log("Panier mis à jour :", panier);
-    
+    voir.push(panier)
 });
+
+
 
 
 // ==== Evénements ====
